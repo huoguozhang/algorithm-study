@@ -1,0 +1,30 @@
+{
+  "name": "algorithm-study",
+  "version": "1.0.0",
+  "description": "算法学习+ts+leetcode真题+jest",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.2"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huoguozhang/algorithm-study.git"
+  },
+  "keywords": [],
+  "author": "zhanglijian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/huoguozhang/algorithm-study/issues"
+  },
+  "homepage": "https://github.com/huoguozhang/algorithm-study#readme"
+}

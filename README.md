@@ -1,2 +1,2 @@
 # algorithm-study
-算法学习 ts+jest+leetcode真题
+算法学习+ts+leetcode真题+jest
