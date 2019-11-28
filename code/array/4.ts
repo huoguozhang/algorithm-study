@@ -1,3 +1,4 @@
+// 89格雷码 https://leetcode-cn.com/problems/gray-code/
 const grayCode = function(n: number): Array<number> {
   if (n === 0) return [0]
   const DigitCount = Math.pow(2, n)
