@@ -8,14 +8,13 @@ const grayCode = function(n: number): Array<number> {
       // 0   1
       // 00  01  11  10
       // 000 001 011 010 110 111 101 100
-      let result = []
       let prev = make(n - 1)
-      for (let i = 0 ; i < prev.length ; i++) {
-        result.push('0' + prev[i])
-      }
-     const prevMirror = prev.reverse()
-      for (let i = 0 ; i < prevMirror.length ; i++) {
-        result.push('1' + prevMirror[i])
+      const len = prev.length
+      let result = new Array(len * 2)
+      let max = result.length - 1
+      for (let i = 0 ; i < len ; i++) {
+        result[i] = '0' + prev[i]
+        result[max - i] = '1' + prev[i]
       }
       return result
     }
