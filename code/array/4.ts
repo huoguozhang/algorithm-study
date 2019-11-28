@@ -1,19 +1,27 @@
 // 89格雷码 https://leetcode-cn.com/problems/gray-code/
 const grayCode = function(n: number): Array<number> {
   if (n === 0) return [0]
-  const DigitCount = Math.pow(2, n)
-  const binaryArr = []
-  function fillStr(s, n) {
-    return s.length === n ? s : new Array(n - s.length).fill(0).join('') + s
-  }
-  for (let i = 0 ; i < DigitCount ; i++) {
-    binaryArr.push(fillStr(i.toString(2), n))
-  }
-  return binaryArr.sort((a, b) => {
-    for(let i = 0 ; i < n ; i ++) {
-
+  function make(n) {
+    if (n === 1) {
+      return ['0', '1']
+    } else {
+      // 0   1
+      // 00  01  11  10
+      // 000 001 011 010 110 111 101 100
+      let result = []
+      let prev = make(n - 1)
+      for (let i = 0 ; i < prev.length ; i++) {
+        result.push('0' + prev[i])
+      }
+     const prevMirror = prev.reverse()
+      for (let i = 0 ; i < prevMirror.length ; i++) {
+        result.push('1' + prevMirror[i])
+      }
+      return result
     }
-  })
+  }
+  const arr = make(n)
+  return arr.map(v => parseInt(v, 2))
 }
 
 export default grayCode
