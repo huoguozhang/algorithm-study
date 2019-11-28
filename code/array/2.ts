@@ -3,47 +3,34 @@
 
 const hasGroupsSizeX = function(deck: Array<number>): boolean {
   // [1,2,3,4,4,3,2,1]
-  if (deck.length < 1 && deck.length > 10000) return false
+  if (deck.length < 2 || deck.length > 10000) return false
   let obj = {}
-  let isOver = false
   deck.forEach(card => {
-    if (card > 10000 || card < 0) {
-      return isOver = true
-    }
     obj[card] ? obj[card]++ : (obj[card] = 1)
   })
-  if (isOver) {
-    return false
+  // 找到最大公约数
+  function gcd(a, b) {
+    if (b === 0) {
+      return a
+    } else {
+      return gcd(b, a % b)
+    }
   }
   // 是否能分组
   function makeGroup(obj) {
-    let minCount = 0, maxCount = 0
-    Object.keys(obj).forEach((key, i) => {
-      if (i === 0) {
-        minCount = obj[key]
-        maxCount = obj[key]
+    // @ts-ignore
+    const values = Object.values(obj)
+    while (values.length > 1) {
+      let a = values.shift()
+      let b = values.shift()
+      let v = gcd(a, b)
+      // 两个数的最大公约数为1直接返回false
+      if (v === 1) {
+        return false
       }
-      if (minCount > obj[key]) minCount = obj[key]
-      if (maxCount < obj[key]) maxCount = obj[key]
-    })
-    function findGongYue (min, max) {
-      let result = 0
-      for(let i = 2; i <= min ; i++ ) {
-        if (min % i === 0 && max % i === 0) {
-          result = i
-          break
-        }
-      }
-      return result
+      values.unshift(v)
     }
-    if (minCount === 1) return false
-
-    let num = findGongYue(minCount, maxCount)
-    if (num === 0) return false
-    return Object.keys(obj).every(key => {
-      return (obj[key] % num) === 0
-    })
-
+    return true
   }
   return makeGroup(obj)
 }

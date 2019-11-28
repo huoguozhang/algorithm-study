@@ -1,4 +1,4 @@
-import letterCombinations from '../../code/array/1'
+import { letterCombinations2 as letterCombinations} from '../../code/array/1'
 
 describe('电话号码', () => {
   test('letterCombinations:23', () => {
