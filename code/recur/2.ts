@@ -1,6 +1,8 @@
 // 30. 串联所有单词的子串 https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/
 
 const findSubstring = function (s: string, words: Array<string>): Array<number> {
+ // 此方法第五个测试用例直接崩了
+
 // s = "barfoothefoobarman",
 // words = ["foo","bar"]
 // 输出：[0,9]
@@ -8,7 +10,8 @@ const findSubstring = function (s: string, words: Array<string>): Array<number> 
   const wordLen = words.join('').length
   const len = words.length
   // 考虑边界情况
-  if (wordLen > s.length) return result
+  if (wordLen > s.length || s.length === 0 || words.length === 0) return result
+
   // 需要存储可能的组合
   const groups = []
 
@@ -29,21 +32,32 @@ const findSubstring = function (s: string, words: Array<string>): Array<number> 
 
   makeGroup([], words)
 
-  function search (indexs, str, group) {
-    let index = str.indexOf(group)
-    if (index > -1) {
-      indexs.push(index)
-      search(indexs, str.slice(index + group.length), group)
-    } {
-      return indexs
+  function runSearch (str, group, prev, indexs) {
+
+    function searchGroup (str, prev, indexs) {
+      let index = str.indexOf(group, prev)
+      if (index > -1) {
+        indexs.push(index)
+        prev = index + 1
+        // 记录上一次的索引
+        searchGroup(str, prev, indexs)
+      } {
+        return indexs
+      }
     }
+
+    searchGroup(s, prev, indexs)
+
+
+    return indexs
   }
 
+
   groups.forEach(group => {
-    const indexs = search([], s, group)
+    const indexs = runSearch(s, group,0, [])
     if (indexs.length > 0) result.push(...indexs)
   })
-
+  // @ts-ignore
   return Array.from(new Set(result))
 }
 
