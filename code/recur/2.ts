@@ -1,7 +1,7 @@
 // 30. 串联所有单词的子串 https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/
 
 const findSubstring = function (s: string, words: Array<string>): Array<number> {
- // 此方法第五个测试用例直接崩了
+ // 此方法最后一个测试用例直接崩了
 
 // s = "barfoothefoobarman",
 // words = ["foo","bar"]

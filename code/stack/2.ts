@@ -40,7 +40,7 @@ const maximalRectangle = function (matrix: Array<Array<string>>): number {
       if (current.length === 0)  return false
 
       if (next.length > 0) {
-
+        // 求得最小的
       }
 
     }
