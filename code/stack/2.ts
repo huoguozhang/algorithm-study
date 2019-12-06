@@ -4,7 +4,7 @@
 //   ["1","0","1","0","0"],
 //   ["1","0","1","1","1"],
 //   ["1","1","1","1","1"],
-//   ["1","0","0","1","0"]
+//   ["1","1","1","1","0"]
 // ]
 // => 6
 const maximalRectangle = function (matrix: Array<Array<string>>): number {
@@ -22,8 +22,11 @@ const maximalRectangle = function (matrix: Array<Array<string>>): number {
   function makeDpValue (width = 0 , height = 0) {
     return { width, height }
   }
+  // @ts-ignore
+  const firstWidth = firstRow[0] & 1
+  dp[0][0] = makeDpValue(firstWidth, firstWidth)
 
-  dp[0][0] = firstRow[0] === '0' ?  makeDpValue() : makeDpValue(1, 1)
+  areaSet.add(firstWidth * firstWidth)
   // 行
   for (let i = 1 ; i < rowLen ; i++) {
     const left = dp[0][i - 1]
@@ -41,6 +44,13 @@ const maximalRectangle = function (matrix: Array<Array<string>>): number {
     areaSet.add(height * 1)
     dp[i][0] = matrix[i][0] === '0' ? makeDpValue() : makeDpValue(1, height)
   }
+  function getResult() {
+    // @ts-ignore
+    const arr = Array.from(areaSet)
+    // @ts-ignore
+    return arr.length > 0 ? Math.max(...arr) : 0
+  }
+  if (matrix.length === 1) return getResult()
  // 计算任意点
   for (let row = 1 ; row < colLen ; row++) {
     for (let col = 1 ; col < rowLen ; col++) {
@@ -49,16 +59,40 @@ const maximalRectangle = function (matrix: Array<Array<string>>): number {
       } else {
         const top = dp[row - 1][col]
         const left = dp[row][col - 1]
+        // 分四种情况判断
+        let current = null
+        let area = 0
+        if (left.width === 0 && top.width === 0) {
+          current = makeDpValue(1, 1)
+          area = 1
+        } else if (left.width === 0) {
+          current = makeDpValue(1, top.height + 1)
+          area = top.height + 1
+        } else if (top.width === 0 ) {
+          current = makeDpValue(left.width + 1, 1)
+          area = left.width + 1
+        } else {
+          // 再分两种情况 左边的点或者上方点向当前点扩散
+          // 情况1 左边的点扩散
+          let area1 = 0
+          let area2 = 0
+          area1 = Math.min(left.height, top.height + 1) * (left.width + 1)
+          area2 = Math.min(left.width + 1, top.width) * (top.height + 1)
+          // 上边的点扩散
+          area = Math.max(area1, area2)
+          if (area1 > area2) {
+            current = makeDpValue( (left.width + 1), Math.min(left.height, top.height + 1) )
+          } else {
+            current = makeDpValue( Math.min(left.width + 1, top.width), (top.height + 1) )
+          }
+        }
 
-        const width = Math.min(top.width, left.width + 1)
-        const height = Math.min(top.height + 1, left.height)
-        areaSet.add(width * height)
-        dp[row][col] = makeDpValue(width, height)
+        dp[row][col] = current
+        areaSet.add(area)
       }
     }
   }
-
-  return { areaSet, dp }
+  return getResult()
 }
 
 export default maximalRectangle

@@ -15,7 +15,9 @@ it('最大矩形面积', () => {
   expect(maximalRectangle([
    ['1']
   ])).toBe(1)
-
+  expect(maximalRectangle([
+   ['0', '0']
+  ])).toBe(0)
   expect(maximalRectangle(
    [["1","1","1","1"],["1","1","1","1"],["1","1","1","1"]]
   )).toBe(12)
