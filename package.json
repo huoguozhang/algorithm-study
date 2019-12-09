@@ -6,7 +6,9 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "commander": "^4.0.1"
+  },
   "devDependencies": {
     "@types/jest": "^24.0.23",
     "jest": "^24.9.0",
