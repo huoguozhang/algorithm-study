@@ -18,19 +18,37 @@ function quickSort (arr) {
   }
   return sort(arr)
 }
-
+// 5 2 3 4 1 8 6 9 7
+//           ^
 function quickSort2 (arr) {
-  function sort(arr) {
-   let flag = arr[0]
-    let index  = 0 // 用index的方式
-    for (let i = 1 ; i < arr.length ; i++) {
+
+  function swap (i, j) {
+    [arr[i], arr[j]] = [arr[j], arr[i]]
+  }
+
+  function findCenter(arr, left, right) {
+    let flag = arr[left]
+    let index = left + 1
+    for (let i = index ; i <= right ; i++) {
       if (arr[i] < flag) {
-
-      } else {
-
+        swap(i, index)
+        index++
       }
     }
 
+    swap(left,index - 1)
+    return index - 1
   }
-  return sort(arr)
+
+  function sort(arr, left, right) {
+    if (left < right) {
+      let center = findCenter(arr, left, right)
+      sort(arr, left, center)
+      sort(arr, center + 1, right)
+    }
+    return arr
+  }
+
+  return sort(arr, 0, arr.length - 1)
+
 }
