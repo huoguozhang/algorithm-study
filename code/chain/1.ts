@@ -2,6 +2,8 @@
 // 声明链表的节点
 
 class Node {
+  val: number
+  next: any
   constructor (value) {
     this.val = value
     this.next = undefined
@@ -22,7 +24,7 @@ class NodeList {
     return head
   }
 }
-
+// 方法一 快速排序
 // 交换两个节点的值
 let swap = (p, q) => {
   let val = p.val
@@ -60,5 +62,46 @@ export default function sort (begin, end) {
 export {
   Node,
   NodeList
+}
+// 方法2 归并排序
+
+const sortList = function (head) {
+  if (!head || !head.next) {
+    return head
+  }
+  // 使用快慢指针
+  //奇数   4 5 3 2 1
+  //慢     ^ ^ ^
+  //快       ^   ^   null
+  //结论: 奇数长度的 慢指针指向中点 快指针指向null
+  //偶数  4 5 3 2 1 6
+  //慢    ^ ^ ^
+  //快      ^   ^   ^
+  // 结论 慢指针指向 1/2 长度 快指针指向最后一个
+  let [slow, fast] = [head, head.next]
+  while (fast && fast.next) {
+    fast = fast.next.next // 一次移动两格
+    slow = slow.next
+  }
+  // 切割为两个链表
+  let center = slow.next
+  slow.next = null
+  let left = sortList(head)
+  let right = sortList(center)
+  const h = new Node(0)
+  const res = h
+  // 合并
+  while (left && right) {
+    if (left.val < right.val) {
+      h.next = left
+      left = left.next
+    } else {
+      h.next = right
+      right = right.next
+    }
+    h = h.next
+  }
+  h.next = left != null ? left : right
+  return res.next
 }
 
