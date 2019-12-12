@@ -2,7 +2,7 @@
 // 方法1 计算
 const leastInterval = function (tasks: Array<any>, n: number): number {
   // @ts-ignore
-  if (n === 0) return tasks.length
+  // if (n === 0) return tasks.length
   // @ts-ignore
   let map = new Map();
     // 遍历计算所有任务出现的次数
@@ -26,8 +26,8 @@ const leastInterval = function (tasks: Array<any>, n: number): number {
     return Math.max(tasks.length, res)
 }
 
-const leastInterval2 = function(tasks, n) {
-  if (n === 0) return tasks.length
+/*const leastInterval2 = function(tasks, n) {
+  // if (n === 0) return tasks.length
   const result = []
   const keyCountMap = {}
   const keyCountIndex = {}
@@ -55,5 +55,5 @@ const leastInterval2 = function(tasks, n) {
     }
   }
   return result.length
-};
+};*/
 export default leastInterval

@@ -19,4 +19,11 @@ const hasCycle = function(head, pos) {
     }
   }
   return false
-};
+}
+
+export default hasCycle
+
+export {
+  NodeList,
+  Node
+}
