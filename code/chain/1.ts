@@ -88,7 +88,7 @@ const sortList = function (head) {
   slow.next = null
   let left = sortList(head)
   let right = sortList(center)
-  const h = new Node(0)
+  let h = new Node(0)
   const res = h
   // 合并
   while (left && right) {
