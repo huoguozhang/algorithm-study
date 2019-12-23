@@ -3,4 +3,7 @@
 
 const uniquePathsWithObstacles = function (obstacleGrid) {
   // 只考虑最后一步，是上一步向下或者向右走过来的
+  let m = obstacleGrid[0].length
+  let  n = obstacleGrid.length
+
 }
